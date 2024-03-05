@@ -193,35 +193,45 @@ def userdata(user_id: str = Query(...,
                         </font>
                         """,
          tags=["Consultas Generales"])
-def user_for_genre(genre: str ):
-
-    # Lee el archivo parquet de la carpeta data
-    current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data', 'df_UserForGenre.parquet')
-    df_genres_separados = pq.read_table(path_to_parquet).to_pandas()
-
+def user_for_genre(genre: str) -> Dict[str, any]:
     """
     Descripción: Retorna el usuario que acumula más horas jugadas para un género dado y una lista de la acumulación de horas jugadas por año.
 
     Parámetros:
-        - genero (str): Género para el cual se busca el usuario con más horas jugadas. Debe ser un string, ejemplo: Adventure
+        - genre (str): Género para el cual se busca el usuario con más horas jugadas.
 
-    Ejemplo de retorno: {"Usuario con más horas jugadas para Género Adventure": Evilutional, Horas jugadas":[{Año: 2013, Horas: 203}, {Año: 2012, Horas: 100}, {Año: 2011, Horas: 23}]}
+    Ejemplo de retorno: {"Usuario con más horas jugadas para Género Adventure": Evilutional, "Horas jugadas": [{"Año": 2013, "Horas": 203}, {"Año": 2012, "Horas": 100}, {"Año": 2011, "Horas": 23}]}
     """
-    
-      
-    # Filtrar el DataFrame por el género dado
-    genre_data = df_genres_separados[df_genres_separados['genres'] == genre]
+    # Lee el archivo parquet de la carpeta data
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    path_to_parquet = os.path.join(current_directory, 'data', 'df_UserForGenre.parquet')
 
-    # Encontrar al usuario con más horas jugadas para ese género
-    top_user = genre_data.loc[genre_data['hours_game'].idxmax()]['user_id']
+    # Inicializar variables
+    top_user = None
+    hours_list = []
 
-    # Crear una lista de acumulación de horas jugadas por año
-    hours_by_year = genre_data.groupby('year')['hours_game'].sum().reset_index()
-  
-    hours_by_year = hours_by_year.rename(columns={'year': 'Año', 'hours_game': 'Horas'})
-    
-    hours_list = hours_by_year.to_dict(orient='records')
+    # Procesar el archivo Parquet por lotes
+    with pq.ParquetFile(path_to_parquet) as pq_file:
+        for i in range(pq_file.num_row_groups):
+            # Leer un lote de datos
+            df_batch = pq_file.read_row_group(i).to_pandas()
+
+            # Filtrar el DataFrame por el género dado
+            genre_data = df_batch[df_batch['genres'] == genre]
+
+            if not genre_data.empty:
+                # Encontrar al usuario con más horas jugadas para ese género en este lote
+                top_user_in_batch = genre_data.loc[genre_data['hours_game'].idxmax()]['user_id']
+
+                # Agregar las horas jugadas por año para este lote
+                hours_by_year = genre_data.groupby('year')['hours_game'].sum().reset_index()
+                hours_by_year = hours_by_year.rename(columns={'year': 'Año', 'hours_game': 'Horas'})
+                hours_list.extend(hours_by_year.to_dict(orient='records'))
+
+                # Actualizar el usuario con más horas jugadas si es necesario
+                if top_user is None or hours_by_year['Horas'].sum() > top_user_hours:
+                    top_user = top_user_in_batch
+                    top_user_hours = hours_by_year['Horas'].sum()
 
     # Crear el diccionario de retorno
     result = {
@@ -314,7 +324,7 @@ def developer_reviews_analysis_endpoint(desarrollador: str):
 #       RECOMENDACIÓN DE USUARIO   ---------------------------------------------------------------------------
 
 @app.get("/recomendacion_usuario/", tags=['recomendacion_usuario item_item'])
-async def item(item_id: int) -> List[str]:
+def item(item_id: int) -> List[str]:
     """
     Descripción: Ingresando el id de producto, devuelve una lista con 5 juegos recomendados similares al ingresado.
     
