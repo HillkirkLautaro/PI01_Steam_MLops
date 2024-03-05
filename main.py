@@ -326,7 +326,7 @@ async def item(item_id: int) -> List[str]:
 
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'dataset', 'recomienda_item_item.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data', 'recomienda_item_item.parquet')
     df = pq.read_table(path_to_parquet).to_pandas()
         
     # Filtrar el DataFrame por el año especificado
