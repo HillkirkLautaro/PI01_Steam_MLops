@@ -314,18 +314,15 @@ def developer_reviews_analysis_endpoint(desarrollador: str):
 #       RECOMENDACIÓN DE USUARIO   ---------------------------------------------------------------------------
 
 @app.get("/recomendacion_usuario/", tags=['recomendacion_usuario item_item'])
-async def item(item_id: int):
-   
+async def item(item_id: int) -> List[str]:
     """
     Descripción: Ingresando el id de producto, devuelve una lista con 5 juegos recomendados similares al ingresado.
     
     Parámetros:
         - item_id (str): Id del producto para el cual se busca la recomendación. Debe ser un número, ejemplo: 761140
         
-    Ejemplo de retorno: "['弹炸人2222', 'Uncanny Islands', 'Beach Rules', 'Planetarium 2 - Zen Odyssey', 'The Warrior Of Treasures']"
-
+    Ejemplo de retorno: ['弹炸人2222', 'Uncanny Islands', 'Beach Rules', 'Planetarium 2 - Zen Odyssey', 'The Warrior Of Treasures']
     """
- 
 
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -335,9 +332,9 @@ async def item(item_id: int):
     # Filtrar el DataFrame por el año especificado
     result_df = df[df['item_id'] == item_id]
     
-    response_data = result_df['Recomendaciones']
+    # Obtener la lista de recomendaciones como una lista de strings
+    recomendaciones = result_df['Recomendaciones'].tolist()
  
-    return response_data
-
+    return recomendaciones
 
 
