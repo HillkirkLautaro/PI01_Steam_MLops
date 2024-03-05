@@ -54,7 +54,7 @@ def read_root():
 
 @app.get("/redirect", include_in_schema=False)
 def redirect_to_docs():
-    link = "https://proyectomlops-henry.onrender.com/docs"
+    link = "https://pi01-steam-mlops.onrender.com/"
     raise HTTPException(status_code=302, detail="Redirecting", headers={"Location": link})
 
 
