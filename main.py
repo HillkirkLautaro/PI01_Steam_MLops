@@ -1,4 +1,4 @@
-from typing import Union, List
+from typing import Union, List, Dict
 from fastapi import FastAPI, Query
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
