@@ -8,8 +8,6 @@ from typing import List
 import pyarrow.parquet as pq
 import numpy as np 
 import os
-import json
-
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 
@@ -206,7 +204,7 @@ def userforgenre(genero):
     data_por_genero = df_playtimeforever[df_playtimeforever['genres'] == genero]
 
     # Agrupa el DataFrame filtrado por usuario y suma la cantidad de horas del usuario que se ingresó como input
-    top_users = data_por_genero.groupby(['user_url', 'user_id'])['playtime_horas'].sum().nlargest(5).reset_index()
+    top_users = data_por_genero.groupby(['user_id'])['playtime_horas'].sum().nlargest(5).reset_index()
 
     # Se hace un diccionario vacío para guardar los datos que se necesitan
     top_users_dict = {}
@@ -214,14 +212,11 @@ def userforgenre(genero):
         # User info recorre cada fila del top 5 y lo guarda en el diccionario
         user_info = {
             'user_id': row['user_id'],
-            'user_url': row['user_url']
+            'playtime_horas': row['playtime_horas']
         }
         top_users_dict[index + 1] = user_info
 
-    # Convertir el diccionario a formato JSON
-    top_users_json = json.dumps(top_users_dict)
-
-    return top_users_json
+    return top_users_dict
 # ------- 4- FUNCION best_developer_year ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
