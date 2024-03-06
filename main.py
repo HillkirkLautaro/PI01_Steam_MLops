@@ -254,7 +254,7 @@ def developer_reviews_analysis_endpoint(desarrollador: str):
 
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data','recomienda_item_item.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data','df_items_developer.parquet')
     df = pq.read_table(path_to_parquet).to_pandas()
 
 
