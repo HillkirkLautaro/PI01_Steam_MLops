@@ -55,11 +55,8 @@ Se realizó un video explicativo que muestra el funcionamiento de la API, las co
 ![Pasos del Proyecto](https://github.com/HillkirkLautaro/PI01_Steam_MLops/blob/main/assets/Etapas.png)
 
 ## Estructura del Repositorio
-1. **/Notebooks:** Contiene los Jupyter Notebooks con el código completo y bien comentado donde se llevaron a cabo las extracciones, transformaciones y carga de datos (ETL), análisis exploratorio de los datos (EDA), y el archivo con Diccionario de datos, MVP, Pautas del proyecto Varios.
-2. **/Datasets:** Almacena los conjuntos de datos utilizados en una versión limpia y procesada. Las fuentes de datos iniciales se encuentran almacenadas en la carpeta de entrada en el siguiente repositorio de Google Drive.
-   - **Archivos_API:** Contiene los conjuntos de datos en formato CSV consumidos por la API.
-   - **Archivos_Limpios:** Contiene los archivos depurados después de realizar el ETL.
-   - **Archivos_ML:** Contiene los archivos consumidos por la API para la construcción del sistema de recomendación.
+1. **/Notebooks:** Contiene los Jupyter Notebooks con el código completo y bien comentado donde se llevaron a cabo las extracciones, transformaciones y carga de datos (ETL), análisis exploratorio de los datos (EDA), el archivo con Diccionario de datos, donde se trabajó el modelo y las funciones.
+2. **/Data:** Almacena los conjuntos de datos utilizados en una versión limpia y procesada. Las fuentes de datos iniciales se encuentran almacenadas en la carpeta de entrada en el repositorio de Google Drive.
 3. **/assets:** Carpeta con imágenes y recursos utilizados en el desarrollo del proyecto.
 ## Posibles Mejoras
 
