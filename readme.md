@@ -1,6 +1,6 @@
 # Proyecto SteamSuggest: Plataforma de Recomendación de Videojuegos para Usuarios de Steam
 
-![Banner de Presentación](C:\Users\123la\Documents\GitHub\repositorios de github\PI01_Steam_MLops\assets\mlops.png)
+![Banner de Presentación](https://www.google.com/url?sa=i&url=https%3A%2F%2Fiasolver.es%2Fdesarrollo-aprendizaje-automatico-mlops%2F&psig=AOvVaw3KlBukCYh2CYOzBPvtWC1c&ust=1709810225029000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCIDMiMrB34QDFQAAAAAdAAAAABAo)
 
 ## Descripción del Proyecto
 Este proyecto representa una fase crucial dentro del bootcamp de Henry, donde se centra en la aplicación práctica de habilidades técnicas y blandas esenciales en el entorno laboral. Se ha desarrollado un caso de negocio auténtico utilizando conjuntos de datos públicos provenientes de la industria de videojuegos, específicamente de la plataforma en línea reconocida como STEAM.
