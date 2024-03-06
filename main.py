@@ -195,42 +195,6 @@ def userdata(user_id: str = Query(...,
          tags=["Consultas Generales"])
 def user_for_genre(genre: str ):
 
-    # Lee el archivo parquet de la carpeta data
-    current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'dataset', 'df_UserForGenre.parquet')
-    df_genres_separados = pq.read_table(path_to_parquet).to_pandas()
-
-    """
-    Descripción: Retorna el usuario que acumula más horas jugadas para un género dado y una lista de la acumulación de horas jugadas por año.
-
-    Parámetros:
-        - genero (str): Género para el cual se busca el usuario con más horas jugadas. Debe ser un string, ejemplo: Adventure
-
-    Ejemplo de retorno: {"Usuario con más horas jugadas para Género Adventure": Evilutional, Horas jugadas":[{Año: 2013, Horas: 203}, {Año: 2012, Horas: 100}, {Año: 2011, Horas: 23}]}
-    """
-    
-      
-    # Filtrar el DataFrame por el género dado
-    genre_data = df_genres_separados[df_genres_separados['genres'] == genre]
-
-    # Encontrar al usuario con más horas jugadas para ese género
-    top_user = genre_data.loc[genre_data['hours_game'].idxmax()]['user_id']
-
-    # Crear una lista de acumulación de horas jugadas por año
-    hours_by_year = genre_data.groupby('year')['hours_game'].sum().reset_index()
-  
-    hours_by_year = hours_by_year.rename(columns={'year': 'Año', 'hours_game': 'Horas'})
-    
-    hours_list = hours_by_year.to_dict(orient='records')
-
-    # Crear el diccionario de retorno
-    result = {
-        "Usuario con más horas jugadas para Género {}".format(genre): top_user,
-        "Horas jugadas": hours_list
-    }
-
-    return result
-
 # ------- 4- FUNCION best_developer_year ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -290,7 +254,7 @@ def developer_reviews_analysis_endpoint(desarrollador: str):
 
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data', 'df_developer_review_analysis.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data','recomienda_item_item.parquet')
     df = pq.read_table(path_to_parquet).to_pandas()
 
 
