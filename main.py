@@ -203,7 +203,7 @@ def userdata(user_id: str = Query(...,
                         </font>
                         """,
          tags=["Consultas Generales"])
-def userforgenre(genero: str) -> List[Dict[str, str]]:
+def userforgenre(genre: str) -> List[Dict[str, str]]:
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
     path_to_parquet = os.path.join(current_directory, 'data', 'df_playtimeforever.parquet')
