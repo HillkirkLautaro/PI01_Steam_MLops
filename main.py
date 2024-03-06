@@ -263,7 +263,7 @@ def developer_reviews_analysis_endpoint(desarrollador: str):
 
     # Convertir a formato de diccionario
     response_data = result_df.set_index('developer').to_dict(orient='index')
-    response_data = response_data.tolist()
+    response_data = response_data.tolist
     return response_data
 
 
@@ -278,7 +278,7 @@ def developer_reviews_analysis_endpoint(desarrollador: str):
 #       RECOMENDACIÓN DE USUARIO   ---------------------------------------------------------------------------
 
 @app.get("/recomendacion_usuario/", tags=['recomendacion_usuario item_item'])
-async def item(item_id: int) -> List[str]:
+def item(item_id: int) -> List[str]:
     """
     Descripción: Ingresando el id de producto, devuelve una lista con 5 juegos recomendados similares al ingresado.
     
