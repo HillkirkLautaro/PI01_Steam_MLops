@@ -1,6 +1,6 @@
 # Proyecto SteamSuggest: Plataforma de Recomendación de Videojuegos para Usuarios de Steam
 
-![Banner de Presentación](https://www.google.com/url?sa=i&url=https%3A%2F%2Fiasolver.es%2Fdesarrollo-aprendizaje-automatico-mlops%2F&psig=AOvVaw3KlBukCYh2CYOzBPvtWC1c&ust=1709810225029000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCIDMiMrB34QDFQAAAAAdAAAAABAo)
+![Banner de Presentación](https://github.com/HillkirkLautaro/PI01_Steam_MLops/blob/main/assets/mlops.png)
 
 ## Descripción del Proyecto
 Este proyecto representa una fase crucial dentro del bootcamp de Henry, donde se centra en la aplicación práctica de habilidades técnicas y blandas esenciales en el entorno laboral. Se ha desarrollado un caso de negocio auténtico utilizando conjuntos de datos públicos provenientes de la industria de videojuegos, específicamente de la plataforma en línea reconocida como STEAM.
@@ -52,7 +52,7 @@ Despliegue del Modelo: El modelo de recomendación se desplegó como parte de la
 ### 5. Video Explicativo
 Se realizó un video explicativo que muestra el funcionamiento de la API, las consultas realizadas y una breve explicación de los modelos de ML utilizados en YouTube.
 
-![Pasos del Proyecto](ruta/de/imagen/pasos.jpg)
+![Pasos del Proyecto](https://github.com/HillkirkLautaro/PI01_Steam_MLops/blob/main/assets/Etapas.png)
 
 ## Estructura del Repositorio
 1. **/Notebooks:** Contiene los Jupyter Notebooks con el código completo y bien comentado donde se llevaron a cabo las extracciones, transformaciones y carga de datos (ETL), análisis exploratorio de los datos (EDA), y el archivo con Diccionario de datos, MVP, Pautas del proyecto Varios.
