@@ -197,7 +197,7 @@ def userdata(user_id: str = Query(...,
 def userforgenre(genero):
     # Lee el archivo Parquet
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data', 'df_playtimeforever.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data', 'df_UserForGenre.parquet')
     df_playtimeforever = pq.read_table(path_to_parquet).to_pandas()
 
     # Filtra el DataFrame por el género de interés
