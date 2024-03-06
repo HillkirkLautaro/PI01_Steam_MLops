@@ -83,7 +83,7 @@ def developer(desarrollador: str = Query(...,
                             example='Valve')):
     
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'dataset', 'df_items_developer.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data', 'df_items_developer.parquet')
     df_items_developer = pq.read_table(path_to_parquet).to_pandas()
 
     '''
@@ -142,11 +142,11 @@ def userdata(user_id: str = Query(...,
 
     # Lee los archivos parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'dataset', 'df_gastos_items.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data', 'df_gastos_items.parquet')
     df_gastos_items = pq.read_table(path_to_parquet).to_pandas()
     
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'dataset', 'df_reviews.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data', 'df_reviews.parquet')
     df_reviews = pq.read_table(path_to_parquet).to_pandas()
     '''
     Esta función devuelve información sobre un usuario según su 'user_id'.
@@ -197,7 +197,7 @@ def user_for_genre(genre: str ):
 
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'dataset', 'df_UserForGenre.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data', 'df_UserForGenre.parquet')
     df_genres_separados = pq.read_table(path_to_parquet).to_pandas()
 
     """
@@ -249,7 +249,7 @@ def best_developer_year(year: int):
 
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'dataset', 'df_best_developer.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data', 'df_best_developer.parquet')
     df = pq.read_table(path_to_parquet).to_pandas()
 
 
@@ -290,7 +290,7 @@ def developer_reviews_analysis_endpoint(desarrollador: str):
 
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'dataset', 'df_developer_review_analysis.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data', 'df_developer_review_analysis.parquet')
     df = pq.read_table(path_to_parquet).to_pandas()
 
 
@@ -329,7 +329,7 @@ async def item(item_id: int):
 
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'dataset', 'recomienda_item_item.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data', 'recomienda_item_item.parquet')
     df = pq.read_table(path_to_parquet).to_pandas()
         
     # Filtrar el DataFrame por el año especificado
