@@ -187,7 +187,7 @@ def userdata(user_id: str = Query(...,
         description = """ <font color="blue">
                         INSTRUCCIONES<br>
                         1. Haga clik en "Try it out".<br>
-                        2. Ingrese el genero en el box abajo, ejemplo: Adventure.<br>
+                        2. Ingrese el genero en el box abajo, ejemplo: Action.<br>
                         3. Scrollear a "Resposes" para ver la cantidad de dinero gastado por el usuario, el porcentaje de recomendación que realiza el usuario y cantidad de items que tiene el mismo.
                         </font>
                         """,
