@@ -8,6 +8,7 @@ from typing import List
 import pyarrow.parquet as pq
 import numpy as np 
 import os
+import json
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
@@ -217,7 +218,10 @@ def userforgenre(genero):
         }
         top_users_dict[index + 1] = user_info
 
-    return top_users_dict
+    # Convertir el diccionario a formato JSON
+    top_users_json = json.dumps(top_users_dict)
+
+    return top_users_json
 # ------- 4- FUNCION best_developer_year ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
