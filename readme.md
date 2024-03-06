@@ -10,9 +10,11 @@ El objetivo principal es construir el primer modelo de Machine Learning (end to 
 
 ## Etapas del Proyecto
 
-![Pasos del Proyecto](C:\Users\123la\Documents\GitHub\repositorios de github\PI01_Steam_MLops\assets\Etapas.png)
+
 
 ### 1. Ingeniería de Datos (ETL y API)
+
+![Pasos del Proyecto](https://github.com/HillkirkLautaro/PI01_Steam_MLops/blob/main/assets/Etapas.png)
 
 #### 1.1 Transformaciones de Datos
 Inicialmente, se recibieron tres (3) archivos en formato JSON, alojados en la carpeta de Entrada de un repositorio público en Google Drive. Se llevaron a cabo transformaciones esenciales para cargar los conjuntos de datos en el formato adecuado, con el propósito de optimizar tanto el rendimiento de la API como el entrenamiento del modelo.
@@ -51,8 +53,6 @@ Despliegue del Modelo: El modelo de recomendación se desplegó como parte de la
 
 ### 5. Video Explicativo
 Se realizó un video explicativo que muestra el funcionamiento de la API, las consultas realizadas y una breve explicación de los modelos de ML utilizados en YouTube.
-
-![Pasos del Proyecto](https://github.com/HillkirkLautaro/PI01_Steam_MLops/blob/main/assets/Etapas.png)
 
 ## Estructura del Repositorio
 1. **/Notebooks:** Contiene los Jupyter Notebooks con el código completo y bien comentado donde se llevaron a cabo las extracciones, transformaciones y carga de datos (ETL), análisis exploratorio de los datos (EDA), el archivo con Diccionario de datos, donde se trabajó el modelo y las funciones.
