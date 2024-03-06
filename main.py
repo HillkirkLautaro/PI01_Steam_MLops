@@ -33,16 +33,16 @@ def read_root():
         }
     </style>
     <div style="text-align: center; font-size: 24px; margin-bottom: 20px;" class="custom-text">
-        "Hola": "¡Bienvenido a mi Proyecto de MLOPS en Henry!"
+        Hola. ¡Bienvenido!
     </div>
     <div style="text-align: center; font-size: 18px; margin-bottom: 40px;" class="custom-text">
-         "Te invito a": "Proyecto FastAPI - Sistema de Recomendaciones STEAM GAMES."(MVP)
+         Se desarrolló un: "Proyecto FastAPI - Sistema de Recomendaciones item-item STEAM GAMES."(MVP)
     </div>
     <div style="text-align: center; font-size: 18px; margin-bottom: 20px;" class="custom-text">
-        "DataScientist": "Karina Kozlowski",
+        Lautaro Hillkirk, Data Scientist,
     </div>
     <div style="text-align: center; font-size: 18px; margin-bottom: 20px;" class="custom-text">
-        "Mensaje": "Proyecto Individual N° 1"
+        "Mensaje": "Proyecto Individual MLops. :D"
     </div>    
     <div style="text-align: center;">
         <form action='/redirect' style="display: inline-block;">
@@ -54,7 +54,7 @@ def read_root():
 
 @app.get("/redirect", include_in_schema=False)
 def redirect_to_docs():
-    link = "https://proyectomlops-henry.onrender.com/docs"
+    link = "https://pi01-steam-mlops.onrender.com"
     raise HTTPException(status_code=302, detail="Redirecting", headers={"Location": link})
 
 
