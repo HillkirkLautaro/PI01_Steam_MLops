@@ -82,7 +82,7 @@ def developer(desarrollador: str = Query(...,
                             example='Valve')):
     
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data', 'df_items_developer.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data', 'items_developer.parquet')
     df_items_developer = pq.read_table(path_to_parquet).to_pandas()
 
     '''
@@ -141,7 +141,7 @@ def userdata(user_id: str = Query(...,
 
     # Lee los archivos parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data', 'df_gastos_items.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data', 'gastos_items.parquet')
     df_gastos_items = pq.read_table(path_to_parquet).to_pandas()
     
     current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -197,7 +197,7 @@ def userdata(user_id: str = Query(...,
 def userforgenre(genero):
     # Lee el archivo Parquet
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data', 'df_UserForGenre.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data', 'userforgenre.parquet')
     df_playtimeforever = pq.read_table(path_to_parquet).to_pandas()
 
     # Filtra el DataFrame por el género de interés
@@ -251,18 +251,7 @@ def best_developer_year(year: int):
                     {"Puesto 3": result_df.iloc[2]['developer']}]
     
     return response_data
-
-
-
-
-
-
-
-
-
-# ------- 5- FUNCION developer_reviews_analysis -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
+#------- 5- FUNCION developer_reviews_analysis -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Definir la ruta de FastAPI para la función developer_reviews_analysis
 @app.get(path = "/developer_reviews_analysis/",
         description = """ <font color="blue">
@@ -277,7 +266,7 @@ def developer_reviews_analysis_endpoint(desarrollador: str):
 
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data','df_items_developer.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data','items_developer.parquet')
     df = pq.read_table(path_to_parquet).to_pandas()
 
 
@@ -286,7 +275,7 @@ def developer_reviews_analysis_endpoint(desarrollador: str):
 
     # Convertir a formato de diccionario
     response_data = result_df.set_index('developer').to_dict(orient='index')
-    response_data = response_data.tolist
+    response_data = response_data.tolist()
     return response_data
 
 
@@ -313,14 +302,14 @@ def item(item_id: int) -> List[str]:
 
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data', 'recomienda_item_item.parquet')
+    path_to_parquet = os.path.join(current_directory, 'data', 'item_item.parquet')
     df = pq.read_table(path_to_parquet).to_pandas()
         
     # Filtrar el DataFrame por el año especificado
     result_df = df[df['item_id'] == item_id]
     
     # Obtener la lista de recomendaciones como una lista de strings
-    recomendaciones = result_df['Recomendaciones'].tolist()
+    recomendaciones = result_df.tolist()
  
     return recomendaciones
 
