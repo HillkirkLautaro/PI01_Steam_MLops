@@ -188,12 +188,14 @@ def userdata(user_id: str = Query(...,
         description = """ <font color="blue">
                         INSTRUCCIONES<br>
                         1. Haga clik en "Try it out".<br>
-                        2. Ingrese el genero en el box abajo, ejemplo: Adventure.<br>
+                        2. Ingrese el genero en el box abajo, ejemplo: Action.<br>
                         3. Scrollear a "Resposes" para ver la cantidad de dinero gastado por el usuario, el porcentaje de recomendación que realiza el usuario y cantidad de items que tiene el mismo.
                         </font>
                         """,
          tags=["Consultas Generales"])
-def user_for_genre(genre: str ):
+def user_for_genre(genre= Query(..., 
+                                description="Género", 
+                                example="Action")):
 
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -286,7 +288,9 @@ def best_developer_year(year: int):
                         </font>
                         """,
          tags=["Consultas Generales"])
-def developer_reviews_analysis_endpoint(desarrollador: str):
+def developer_reviews_analysis_endpoint(desarrollador= Query(..., 
+                                description="Desarrollador de videojuegos", 
+                                example="Valve")):
 
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
