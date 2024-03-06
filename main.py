@@ -1,4 +1,4 @@
-from typing import Union, List, Dict
+from typing import Union, List
 from fastapi import FastAPI, Query
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
@@ -6,8 +6,9 @@ import pandas as pd
 from dateutil import parser
 from typing import List
 import pyarrow.parquet as pq
-import numpy as np 
+import numpy as np  # Agregamos la importación de numpy
 import os
+
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 
@@ -32,20 +33,20 @@ def read_root():
         }
     </style>
     <div style="text-align: center; font-size: 24px; margin-bottom: 20px;" class="custom-text">
-        ¡Welcome to my MLOPS project!
+        "Hola": "¡Bienvenido a mi Proyecto de MLOPS en Henry!"
     </div>
     <div style="text-align: center; font-size: 18px; margin-bottom: 40px;" class="custom-text">
-        FastAPI-Project - Recommendation system of steam games.(MVP)
+         "Te invito a": "Proyecto FastAPI - Sistema de Recomendaciones STEAM GAMES."(MVP)
     </div>
     <div style="text-align: center; font-size: 18px; margin-bottom: 20px;" class="custom-text">
-        DataScientist: Lautaro Hillkirk,
+        "DataScientist": "Karina Kozlowski",
     </div>
     <div style="text-align: center; font-size: 18px; margin-bottom: 20px;" class="custom-text">
-        "Individual Project"
+        "Mensaje": "Proyecto Individual N° 1"
     </div>    
     <div style="text-align: center;">
         <form action='/redirect' style="display: inline-block;">
-            <input type='submit' value='Enter to the API' style="font-size: 16px; background-color: orange; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+            <input type='submit' value='Ingrese a la API' style="font-size: 16px; background-color: orange; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
         </form>
     </div>
     """
@@ -53,7 +54,7 @@ def read_root():
 
 @app.get("/redirect", include_in_schema=False)
 def redirect_to_docs():
-    link = "https://pi01-steam-mlops.onrender.com/docs"
+    link = "https://proyectomlops-henry.onrender.com/docs"
     raise HTTPException(status_code=302, detail="Redirecting", headers={"Location": link})
 
 
@@ -82,7 +83,7 @@ def developer(desarrollador: str = Query(...,
                             example='Valve')):
     
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data', 'items_developer.parquet')
+    path_to_parquet = os.path.join(current_directory, 'dataset', 'df_items_developer.parquet')
     df_items_developer = pq.read_table(path_to_parquet).to_pandas()
 
     '''
@@ -141,11 +142,11 @@ def userdata(user_id: str = Query(...,
 
     # Lee los archivos parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data', 'gastos_items.parquet')
+    path_to_parquet = os.path.join(current_directory, 'dataset', 'df_gastos_items.parquet')
     df_gastos_items = pq.read_table(path_to_parquet).to_pandas()
     
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data', 'df_reviews.parquet')
+    path_to_parquet = os.path.join(current_directory, 'dataset', 'df_reviews.parquet')
     df_reviews = pq.read_table(path_to_parquet).to_pandas()
     '''
     Esta función devuelve información sobre un usuario según su 'user_id'.
@@ -187,37 +188,49 @@ def userdata(user_id: str = Query(...,
         description = """ <font color="blue">
                         INSTRUCCIONES<br>
                         1. Haga clik en "Try it out".<br>
-                        2. Ingrese el genero en el box abajo, ejemplo: Action.<br>
+                        2. Ingrese el genero en el box abajo, ejemplo: Adventure.<br>
                         3. Scrollear a "Resposes" para ver la cantidad de dinero gastado por el usuario, el porcentaje de recomendación que realiza el usuario y cantidad de items que tiene el mismo.
                         </font>
                         """,
          tags=["Consultas Generales"])
+def user_for_genre(genre: str ):
 
-@app.get("/user_for_genre/")
-def userforgenre(genero):
-    # Lee el archivo Parquet
+    # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data', 'userforgenre.parquet')
-    df_playtimeforever = pq.read_table(path_to_parquet).to_pandas()
+    path_to_parquet = os.path.join(current_directory, 'dataset', 'df_UserForGenre.parquet')
+    df_genres_separados = pq.read_table(path_to_parquet).to_pandas()
 
-    # Filtra el DataFrame por el género de interés
-    data_por_genero = df_playtimeforever[df_playtimeforever['genres'] == genero]
+    """
+    Descripción: Retorna el usuario que acumula más horas jugadas para un género dado y una lista de la acumulación de horas jugadas por año.
 
-    # Agrupa el DataFrame filtrado por usuario y suma la cantidad de horas del usuario que se ingresó como input
-    top_users = data_por_genero.groupby(['user_id'])['playtime_horas'].sum().nlargest(5).reset_index()
+    Parámetros:
+        - genero (str): Género para el cual se busca el usuario con más horas jugadas. Debe ser un string, ejemplo: Adventure
 
-    # Se hace un diccionario vacío para guardar los datos que se necesitan
-    top_users_dict = {}
-    for index, row in top_users.iterrows():
-        # User info recorre cada fila del top 5 y lo guarda en el diccionario
-        user_info = {
-            'user_id': row['user_id'],
-            'hours_game': row['hours_game'],
-            'year': row['year']
-            }
-        top_users_dict[index + 1] = user_info
+    Ejemplo de retorno: {"Usuario con más horas jugadas para Género Adventure": Evilutional, Horas jugadas":[{Año: 2013, Horas: 203}, {Año: 2012, Horas: 100}, {Año: 2011, Horas: 23}]}
+    """
+    
+      
+    # Filtrar el DataFrame por el género dado
+    genre_data = df_genres_separados[df_genres_separados['genres'] == genre]
 
-    return top_users_dict
+    # Encontrar al usuario con más horas jugadas para ese género
+    top_user = genre_data.loc[genre_data['hours_game'].idxmax()]['user_id']
+
+    # Crear una lista de acumulación de horas jugadas por año
+    hours_by_year = genre_data.groupby('year')['hours_game'].sum().reset_index()
+  
+    hours_by_year = hours_by_year.rename(columns={'year': 'Año', 'hours_game': 'Horas'})
+    
+    hours_list = hours_by_year.to_dict(orient='records')
+
+    # Crear el diccionario de retorno
+    result = {
+        "Usuario con más horas jugadas para Género {}".format(genre): top_user,
+        "Horas jugadas": hours_list
+    }
+
+    return result
+
 # ------- 4- FUNCION best_developer_year ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -236,7 +249,7 @@ def best_developer_year(year: int):
 
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data', 'df_best_developer.parquet')
+    path_to_parquet = os.path.join(current_directory, 'dataset', 'df_best_developer.parquet')
     df = pq.read_table(path_to_parquet).to_pandas()
 
 
@@ -251,7 +264,18 @@ def best_developer_year(year: int):
                     {"Puesto 3": result_df.iloc[2]['developer']}]
     
     return response_data
-#------- 5- FUNCION developer_reviews_analysis -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+# ------- 5- FUNCION developer_reviews_analysis -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 # Definir la ruta de FastAPI para la función developer_reviews_analysis
 @app.get(path = "/developer_reviews_analysis/",
         description = """ <font color="blue">
@@ -266,7 +290,7 @@ def developer_reviews_analysis_endpoint(desarrollador: str):
 
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data','items_developer.parquet')
+    path_to_parquet = os.path.join(current_directory, 'dataset', 'df_developer_review_analysis.parquet')
     df = pq.read_table(path_to_parquet).to_pandas()
 
 
@@ -275,7 +299,7 @@ def developer_reviews_analysis_endpoint(desarrollador: str):
 
     # Convertir a formato de diccionario
     response_data = result_df.set_index('developer').to_dict(orient='index')
-    response_data = response_data.tolist()
+    
     return response_data
 
 
@@ -290,27 +314,30 @@ def developer_reviews_analysis_endpoint(desarrollador: str):
 #       RECOMENDACIÓN DE USUARIO   ---------------------------------------------------------------------------
 
 @app.get("/recomendacion_usuario/", tags=['recomendacion_usuario item_item'])
-def item(item_id: int) -> List[str]:
+async def item(item_id: int):
+   
     """
     Descripción: Ingresando el id de producto, devuelve una lista con 5 juegos recomendados similares al ingresado.
     
     Parámetros:
         - item_id (str): Id del producto para el cual se busca la recomendación. Debe ser un número, ejemplo: 761140
         
-    Ejemplo de retorno: ['弹炸人2222', 'Uncanny Islands', 'Beach Rules', 'Planetarium 2 - Zen Odyssey', 'The Warrior Of Treasures']
+    Ejemplo de retorno: "['弹炸人2222', 'Uncanny Islands', 'Beach Rules', 'Planetarium 2 - Zen Odyssey', 'The Warrior Of Treasures']"
+
     """
+ 
 
     # Lee el archivo parquet de la carpeta data
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data', 'item_item.parquet')
+    path_to_parquet = os.path.join(current_directory, 'dataset', 'recomienda_item_item.parquet')
     df = pq.read_table(path_to_parquet).to_pandas()
         
     # Filtrar el DataFrame por el año especificado
     result_df = df[df['item_id'] == item_id]
     
-    # Obtener la lista de recomendaciones como una lista de strings
-    recomendaciones = result_df.tolist()
+    response_data = result_df['Recomendaciones']
  
-    return recomendaciones
+    return response_data
+
 
 
