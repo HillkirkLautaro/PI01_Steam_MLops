@@ -194,39 +194,21 @@ def userdata(user_id: str = Query(...,
                         """,
          tags=["Consultas Generales"])
 
-@app.get(path="/user_for_genre/", 
-         description=""" <font color="blue">
-                        INSTRUCCIONES<br>
-                        1. Haga clic en "Try it out".<br>
-                        2. Ingrese el género en el cuadro de abajo, por ejemplo: Adventure.<br>
-                        3. Desplácese hacia "Responses" para ver la cantidad de dinero gastado por el usuario, el porcentaje de recomendación que realiza el usuario y la cantidad de ítems que tiene el mismo.
-                        </font>
-                        """,
-         tags=["Consultas Generales"])
-def userforgenre(genre: str) -> List[Dict[str, str]]:
-    # Lee el archivo parquet de la carpeta data
-    current_directory = os.path.dirname(os.path.abspath(__file__))
-    path_to_parquet = os.path.join(current_directory, 'data', 'df_playtimeforever.parquet')
-
-    # Lista para almacenar los resultados
-    top_users_list = []
-
-    # Itera sobre el archivo Parquet en fragmentos más pequeños
-    for chunk in pd.read_parquet(path_to_parquet, chunksize=1000):
-        # Filtra el dataframe por el género de interés
-        data_por_genero = chunk[chunk['genres'] == genero]
-        # Agrupa el dataframe filtrado por usuario y suma la cantidad de horas
-        top_users = data_por_genero.groupby(['user_url', 'user_id'])['playtime_horas'].sum().nlargest(5).reset_index()
-
-        # Agrega los resultados al resultado final
-        for index, row in top_users.iterrows():
-            user_info = {
-                'user_id': row['user_id'],
-                'user_url': row['user_url']
-            }
-            top_users_list.append(user_info)
-
-    return top_users_list[:5] 
+@app.get("/user_for_genre/")
+def user_for_genre(
+    genre: str = Query(
+        ...,
+        description="Género de interés",
+        example="Adventure"
+    ),
+    user_id: str = Query(
+        ...,
+        description="Identificador único del usuario",
+        example="EchoXSilence"
+    )
+) -> List[Dict[str, str]]:
+    # Aquí va tu lógica para procesar los parámetros y devolver la respuesta
+    return [{"user_id": user_id, "genre": genre}] 
 # ------- 4- FUNCION best_developer_year ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
