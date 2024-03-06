@@ -193,8 +193,27 @@ def userdata(user_id: str = Query(...,
                         </font>
                         """,
          tags=["Consultas Generales"])
-def user_for_genre(genre: str ):
+def userforgenre(genero:str):
+    # Lee el archivo parquet de la carpeta data
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    path_to_parquet = os.path.join(current_directory, 'data', 'df_playtimeforever.parquet')
+    df_playtimeforever = pq.read_table(path_to_parquet).to_pandas()
 
+    # Filtra el dataframe por el género de interés
+    data_por_genero = df_playtimeforever[df_playtimeforever['genres'] == genero]
+    # Agrupa el dataframe filtrado por usuario y suma la cantidad de horas
+    top_users = data_por_genero.groupby(['user_url', 'user_id'])['playtime_horas'].sum().nlargest(5).reset_index()
+    
+    # Se hace un diccionario vacío para guardar los datos que se necesitan
+    top_users_dict = {}
+    for index, row in top_users.iterrows():
+        # User info recorre cada fila del top 5 y lo guarda en el diccionario
+        user_info = {
+            'user_id': row['user_id'],
+            'user_url': row['user_url']
+        }
+        top_users_dict[index + 1] = user_info
+    return top_users_dict
 # ------- 4- FUNCION best_developer_year ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
