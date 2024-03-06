@@ -195,20 +195,29 @@ def userdata(user_id: str = Query(...,
          tags=["Consultas Generales"])
 
 @app.get("/user_for_genre/")
-def user_for_genre(
-    genre: str = Query(
-        ...,
-        description="Género de interés",
-        example="Adventure"
-    ),
-    user_id: str = Query(
-        ...,
-        description="Identificador único del usuario",
-        example="EchoXSilence"
-    )
-) -> List[Dict[str, str]]:
-    # Aquí va tu lógica para procesar los parámetros y devolver la respuesta
-    return [{"user_id": user_id, "genre": genre}] 
+def userforgenre(genero):
+    # Lee el archivo Parquet
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    path_to_parquet = os.path.join(current_directory, 'data', 'df_playtimeforever.parquet')
+    df_playtimeforever = pq.read_table(path_to_parquet).to_pandas()
+
+    # Filtra el DataFrame por el género de interés
+    data_por_genero = df_playtimeforever[df_playtimeforever['genres'] == genero]
+
+    # Agrupa el DataFrame filtrado por usuario y suma la cantidad de horas del usuario que se ingresó como input
+    top_users = data_por_genero.groupby(['user_url', 'user_id'])['playtime_horas'].sum().nlargest(5).reset_index()
+
+    # Se hace un diccionario vacío para guardar los datos que se necesitan
+    top_users_dict = {}
+    for index, row in top_users.iterrows():
+        # User info recorre cada fila del top 5 y lo guarda en el diccionario
+        user_info = {
+            'user_id': row['user_id'],
+            'user_url': row['user_url']
+        }
+        top_users_dict[index + 1] = user_info
+
+    return top_users_dict
 # ------- 4- FUNCION best_developer_year ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
