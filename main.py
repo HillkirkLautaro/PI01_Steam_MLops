@@ -212,7 +212,7 @@ def userforgenre(genero):
         # User info recorre cada fila del top 5 y lo guarda en el diccionario
         user_info = {
             'user_id': row['user_id'],
-            'hours_game': row['hours_game']
+            'hours_game': row['hours_game'],
             'year': row['year']
             }
         top_users_dict[index + 1] = user_info
