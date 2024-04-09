@@ -7,14 +7,9 @@ Este proyecto se centra en la aplicación práctica de habilidades técnicas y b
 
 ## Propósito
 El objetivo principal es construir el primer modelo de Machine Learning (end to end) que aborde un problema de negocio en Steam, a través de un enfoque integral que abarca desde la Ingeniería de Datos (ETL, EDA, API) hasta la implementación del ML. Se persigue lograr un desarrollo rápido y obtener un Producto Mínimo Viable (MVP).
-
-## Etapas del Proyecto
-
-
-
-## 1. Ingeniería de Datos (ETL y API)
 ![Pasos del Proyecto](https://github.com/HillkirkLautaro/PI01_Steam_MLops/blob/main/assets/Etapas.png)
 
+## Etapas del Proyecto
 #### 1.1 Transformaciones de Datos
 Inicialmente, se recibieron tres (3) archivos en formato JSON, alojados en la carpeta de Entrada de un repositorio público en Google Drive. Se llevaron a cabo transformaciones esenciales para cargar los conjuntos de datos en el formato adecuado, con el propósito de optimizar tanto el rendimiento de la API como el entrenamiento del modelo.
 
