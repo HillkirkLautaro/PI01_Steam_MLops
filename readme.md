@@ -12,8 +12,7 @@ El objetivo principal es construir el primer modelo de Machine Learning (end to 
 
 
 
-### 1. Ingeniería de Datos (ETL y API)
-
+## 1. Ingeniería de Datos (ETL y API)
 ![Pasos del Proyecto](https://github.com/HillkirkLautaro/PI01_Steam_MLops/blob/main/assets/Etapas.png)
 
 #### 1.1 Transformaciones de Datos
