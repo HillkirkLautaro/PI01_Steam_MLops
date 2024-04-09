@@ -3,7 +3,7 @@
 ![Banner de Presentación](https://github.com/HillkirkLautaro/PI01_Steam_MLops/blob/main/assets/mlops.png)
 
 ## Descripción del Proyecto
-Este proyecto representa una fase crucial dentro del bootcamp de Henry, donde se centra en la aplicación práctica de habilidades técnicas y blandas esenciales en el entorno laboral. Se ha desarrollado un caso de negocio auténtico utilizando conjuntos de datos públicos provenientes de la industria de videojuegos, específicamente de la plataforma en línea reconocida como STEAM.
+Este proyecto se centra en la aplicación práctica de habilidades técnicas y blandas esenciales en el entorno laboral. Se ha desarrollado un caso de negocio auténtico utilizando conjuntos de datos públicos provenientes de la industria de videojuegos, específicamente de la plataforma en línea reconocida como STEAM.
 
 ## Propósito
 El objetivo principal es construir el primer modelo de Machine Learning (end to end) que aborde un problema de negocio en Steam, a través de un enfoque integral que abarca desde la Ingeniería de Datos (ETL, EDA, API) hasta la implementación del ML. Se persigue lograr un desarrollo rápido y obtener un Producto Mínimo Viable (MVP).
