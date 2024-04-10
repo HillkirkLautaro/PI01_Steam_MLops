@@ -29,7 +29,7 @@ Se implementó una API con FastAPI y se desplegó en Render, proporcionando cinc
 - Endpoint 4 (BestDeveloper): Devuelve el top 3 de desarrolladoras con juegos MENOS recomendados por usuarios para el año dado.
 - Endpoint 5 (developer_review_analysis): Según la empresa desarrolladora, devuelve un diccionario con el nombre de la desarrolladora como clave y una lista con la cantidad total de registros de reseñas de usuarios categorizados con un análisis de sentimiento como valor.
 
-Para acceder a la funcionalidad completa de la API y explorar las recomendaciones de juegos, visita este [enlace URL de la API](#).
+Para acceder a la funcionalidad completa de la API y explorar las recomendaciones de juegos, visita este [enlace URL de la API](https://pi01-steam-mlops.onrender.com).
 
 ### 2. Análisis Exploratorio de Datos (EDA)
 Se investigaron las relaciones entre variables, se identificaron valores atípicos y se buscaron patrones interesantes en los datos. El cuaderno EDA_Análisis Exploratorio de Datos contiene más detalles al respecto.
